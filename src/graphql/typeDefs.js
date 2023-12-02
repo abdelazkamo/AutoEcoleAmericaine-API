@@ -80,19 +80,46 @@ module.exports = gql`
     user_id: ID!
   }
 
+  type Reservation {
+    _id: ID!
+    user_id: ID!
+    ride_id: ID!
+    weight: Float!
+    status: String
+  }
+
+  input ReservationInput {
+    user_id: ID!
+    ride_id: ID!
+    weight: Float!
+  }
+  input ReservationUpdateInput {
+    weight: Float
+    status: String
+  }
+
   type Query {
     getUser(ID: ID): User!
     getUsers(amount: Int): [User]
+
     getRide(ID: ID): Ride!
     getRides(amount: Int): [Ride]
+
+    getReservation(ID: ID): Reservation!
+    getReservations(amount: Int): [Reservation]
   }
 
   type Mutation {
     createUser(input: UserInput): User!
     deleteUser(ID: ID!): Boolean
     updateUser(ID: ID!, input: UserUpdateInput): User!
+
     createRide(input: RideInput): Ride!
     deleteRide(ID: ID!): Boolean
     updateRide(ID: ID!, input: RideInput): Ride!
+
+    createReservation(input: ReservationInput): Reservation!
+    deleteReservation(ID: ID!): Boolean
+    updateReservation(ID: ID!, input: ReservationUpdateInput): Reservation!
   }
 `;
