@@ -98,6 +98,98 @@ module.exports = gql`
     status: String
   }
 
+  type Payement {
+    _id: ID!
+    user_id: ID!
+    payment_date: Date
+    payment_method: String
+    amount: Number
+  }
+
+  input PayementInput {
+    user_id: ID!
+    payment_date: Date
+    payment_method: String
+    amount: Number
+  }
+
+  type Transaction {
+    _id: ID!
+    user_id: ID!
+    package_id: ID!
+    ride_id: ID!
+    transaction_date: Date
+    transaction_status: String
+  }
+
+  input TransactionInput {
+    user_id: ID!
+    package_id: ID!
+    ride_id: ID!
+    transaction_date: Date
+    transaction_status: String
+  }
+
+  type Notification {
+    _id: ID!
+    user_id: String
+    notification_type: String
+    message: String
+    timestamp: String
+  }
+
+  input NotificationInput {
+    user_id: String
+    notification_type: String
+    message: String
+    timestamp: String
+  }
+
+  input NotificationUpdateInput {
+    notification_type: String
+    message: String
+    timestamp: String
+  }
+
+  type Subscription {
+    user_id: ID!
+    start_date: Date
+    end_date: Date
+    subscription_status: String
+  }
+
+  input SubscriptionInput {
+    user_id: String
+    start_date: Date
+    end_date: Date
+    subscription_status: String
+  }
+
+  input SubscriptionUpdateInput {
+    start_date: Date
+    end_date: Date
+    subscription_status: String
+  }
+
+  type Review {
+    user_id: ID!
+    package_id: ID!
+    rating: Number
+    comment: String
+  }
+
+  input ReviewInput {
+    user_id: ID!
+    package_id: ID!
+    rating: Number
+    comment: String
+  }
+
+  input ReviewUpdateInput {
+    rating: Number
+    comment: String
+  }
+
   type Query {
     getUser(ID: ID): User!
     getUsers(amount: Int): [User]
@@ -107,6 +199,21 @@ module.exports = gql`
 
     getReservation(ID: ID): Reservation!
     getReservations(amount: Int): [Reservation]
+
+    getPayement(ID: ID): Payement!
+    getPayements(amount: Int): [Payement]
+
+    getTransaction(ID: ID): Transaction!
+    getTransactions(amount: Int): [Transaction]
+
+    getNotification(ID: ID): Notification!
+    getNotifications(amount: Int): [Notification]
+
+    getSubscription(ID: ID): Subscription!
+    getSubscriptions(amount: Int): [Subscription]
+
+    getReview(ID: ID): Review!
+    getReviews(amount: Int): [Review]
   }
 
   type Mutation {
@@ -121,5 +228,23 @@ module.exports = gql`
     createReservation(input: ReservationInput): Reservation!
     deleteReservation(ID: ID!): Boolean
     updateReservation(ID: ID!, input: ReservationUpdateInput): Reservation!
+
+    createPayement(input: PayementInput): Payement!
+
+    createTransaction(input: TransactionInput): Transaction!
+    deleteTransaction(ID: ID!): Boolean
+    updateTransaction(ID: ID!, input: TransactionUpdateInput): Transaction!
+
+    createNotification(input: NotificationInput): Notification!
+    deleteNotification(ID: ID!): Boolean
+    updateNotification(ID: ID!, input: NotificationUpdateInput): Notification!
+
+    createSubscription(input: SubscriptionInput): Subscription!
+    deleteSubscription(ID: ID!): Boolean
+    updateSubscription(ID: ID!, input: SubscriptionUpdateInput): Subscription!
+
+    createReview(input: ReviewInput): Review!
+    deleteReview(ID: ID!): Boolean
+    updateReview(ID: ID!, input: ReviewUpdateInput): Review!
   }
 `;
