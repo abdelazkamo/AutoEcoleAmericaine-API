@@ -1,9 +1,11 @@
 const User = require("../models/Users");
 const Ride = require("../models/Rides");
 const Reservation = require("../models/Reservations");
-const Payement = require("../models/Payements");
+const Payement = require("../models/Payments");
+const Review = require("../models/Reviews");
 const Transaction = require("../models/Transactions");
 const Notification = require("../models/Notifications");
+const Subscription = require("../models/Subscriptions");
 
 module.exports = {
   Query: {
@@ -12,6 +14,18 @@ module.exports = {
     },
     async getUsers(_, { amount }) {
       return await User.find().sort({ createdAt: -1 }).limit(amount);
+    },
+    async getNotification(_, { ID }) {
+      return await Notification.findById(ID);
+    },
+    async getNotifications(_, { amount }) {
+      return await Notification.find().sort({ createdAt: -1 }).limit(amount);
+    },
+    async getPayement(_, { ID }) {
+      return await Payement.findById(ID);
+    },
+    async getPayements(_, { amount }) {
+      return await Payement.find().sort({ createdAt: -1 }).limit(amount);
     },
 
     async getRide(_, { ID }) {
@@ -26,6 +40,18 @@ module.exports = {
     },
     async getReservations(_, { amount }) {
       return await Reservation.find().sort({ createdAt: -1 }).limit(amount);
+    },
+    async getReview(_, { ID }) {
+      return await Review.findById(ID);
+    },
+    async getReviews(_, { amount }) {
+      return await Review.find().sort({ createdAt: -1 }).limit(amount);
+    },
+    async getSubscription(_, { ID }) {
+      return await Subscription.findById(ID);
+    },
+    async getSubscriptions(_, { amount }) {
+      return await Subscription.find().sort({ createdAt: -1 }).limit(amount);
     },
   },
   Mutation: {
@@ -217,13 +243,10 @@ module.exports = {
     },
 
     // -----------------Payement------------------------------
-    async createPayement(
-      _,
-      { input: { user_id, payment_date, payment_method, amount } }
-    ) {
+    async createPayement(_, { input: { user_id, payment_method, amount } }) {
       const createPayement = new Payement({
         user_id,
-        payment_date,
+        payment_date: new Date().toISOString(),
         payment_method,
         amount,
         createdAt: new Date().toISOString(),
@@ -296,13 +319,13 @@ module.exports = {
 
     async createNotification(
       _,
-      { input: { user_id, notification_type, message, timestamp } }
+      { input: { user_id, notification_type, message } }
     ) {
       const createNotification = new Notification({
         user_id,
         notification_type,
         message,
-        timestamp,
+        timestamp: new Date().toISOString(),
         createdAt: new Date().toISOString(),
       });
 
@@ -319,17 +342,13 @@ module.exports = {
       return wasDeleted;
     },
 
-    async updateNotification(
-      _,
-      { ID, input: { notification_type, message, timestamp } }
-    ) {
+    async updateNotification(_, { ID, input: { notification_type, message } }) {
       try {
         const updateNotification = await Notification.findByIdAndUpdate(
           ID,
           {
             notification_type,
             message,
-            timestamp,
           },
           { new: true, upsert: false }
         );
@@ -348,12 +367,13 @@ module.exports = {
 
     async createSubscription(
       _,
-      { input: { user_id, start_date, end_date, subscription_status } }
+      { input: { user_id, start_date, end_date, type, subscription_status } }
     ) {
       const createSubscription = new Subscription({
         user_id,
         start_date,
         end_date,
+        type,
         subscription_status,
         createdAt: new Date().toISOString(),
       });
@@ -373,7 +393,7 @@ module.exports = {
 
     async updateSubscription(
       _,
-      { ID, input: { start_date, end_date, subscription_status } }
+      { ID, input: { start_date, end_date, type, subscription_status } }
     ) {
       try {
         const updateSubscription = await Subscription.findByIdAndUpdate(
@@ -381,6 +401,7 @@ module.exports = {
           {
             start_date,
             end_date,
+            type,
             subscription_status,
           },
           { new: true, upsert: false }

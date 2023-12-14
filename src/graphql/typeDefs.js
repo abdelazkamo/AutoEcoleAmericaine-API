@@ -101,16 +101,15 @@ module.exports = gql`
   type Payement {
     _id: ID!
     user_id: ID!
-    payment_date: Date
+    payment_date: String
     payment_method: String
-    amount: Number
+    amount: Float
   }
 
   input PayementInput {
     user_id: ID!
-    payment_date: Date
     payment_method: String
-    amount: Number
+    amount: Float
   }
 
   type Transaction {
@@ -118,7 +117,7 @@ module.exports = gql`
     user_id: ID!
     package_id: ID!
     ride_id: ID!
-    transaction_date: Date
+    transaction_date: String
     transaction_status: String
   }
 
@@ -126,7 +125,10 @@ module.exports = gql`
     user_id: ID!
     package_id: ID!
     ride_id: ID!
-    transaction_date: Date
+    transaction_date: String
+    transaction_status: String
+  }
+  input TransactionUpdateInput {
     transaction_status: String
   }
 
@@ -142,51 +144,54 @@ module.exports = gql`
     user_id: String
     notification_type: String
     message: String
-    timestamp: String
   }
 
   input NotificationUpdateInput {
     notification_type: String
     message: String
-    timestamp: String
   }
 
   type Subscription {
+    _id: ID!
     user_id: ID!
-    start_date: Date
-    end_date: Date
+    start_date: String
+    end_date: String
     subscription_status: String
+    type: String
   }
 
   input SubscriptionInput {
     user_id: String
-    start_date: Date
-    end_date: Date
+    start_date: String
+    end_date: String
     subscription_status: String
+    type: String
   }
 
   input SubscriptionUpdateInput {
-    start_date: Date
-    end_date: Date
+    start_date: String
+    end_date: String
     subscription_status: String
+    type: String
   }
 
   type Review {
+    _id: ID!
     user_id: ID!
     package_id: ID!
-    rating: Number
+    rating: Float
     comment: String
   }
 
   input ReviewInput {
     user_id: ID!
     package_id: ID!
-    rating: Number
+    rating: Float
     comment: String
   }
 
   input ReviewUpdateInput {
-    rating: Number
+    rating: Float
     comment: String
   }
 

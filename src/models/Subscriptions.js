@@ -5,6 +5,7 @@ const subscriptionSchema = new Schema({
   start_date: Date,
   end_date: Date,
   subscription_status: String,
+  type: String,
 });
 
 module.exports = model("Subscription", subscriptionSchema);
