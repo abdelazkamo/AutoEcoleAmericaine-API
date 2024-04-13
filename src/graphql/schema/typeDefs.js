@@ -4,7 +4,7 @@ module.exports = gql`
   type Address {
     street: String!
     city: String!
-    state: String!
+    state: String
     zip_code: String
   }
 
@@ -195,8 +195,20 @@ module.exports = gql`
     comment: String
   }
 
+  input AuthInput {
+    email: String
+    password: String
+  }
+
+  type AuthData {
+    user: User!
+    token: String!
+    tokenExpiration: Int!
+  }
+
   type Query {
     getUser(ID: ID): User!
+    login(input: AuthInput): AuthData!
     getUsers(amount: Int): [User]
 
     getRide(ID: ID): Ride!

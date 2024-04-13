@@ -1,20 +1,19 @@
 require("dotenv").config();
-
 const { ApolloServer } = require("apollo-server");
-const mongoogse = require("mongoose");
+const mongoose = require("mongoose");
 
 const MONGODB = process.env.MONGODB;
 
-const typeDefs = require("./graphql/typeDefs");
-const resolvers = require("./graphql/resolvers");
+const typeDefs = require("./graphql/schema/typeDefs");
+const resolvers = require("./graphql/resolvers/index");
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-mongoogse
-  .connect(MONGODB, { useNewUrlParser: true })
+mongoose
+  .connect(MONGODB)
   .then(() => {
     console.log("Connection successful");
     return server.listen({ port: 5000 });
