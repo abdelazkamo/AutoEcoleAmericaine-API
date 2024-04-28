@@ -64,10 +64,22 @@ module.exports = gql`
     end_time: String!
     distance: Float
     travel_mode: String!
-    user_id: String!
+    user: User!
   }
 
-  input RideInput {
+  input RideInputCreate {
+    start_location: String!
+    end_location: String!
+    date: String!
+    available_weight: Float!
+    price_per_kg: Float!
+    start_time: String!
+    end_time: String!
+    distance: Float
+    travel_mode: String!
+    user_id: ID!
+  }
+  input RideInputUpdate {
     start_location: String
     end_location: String
     date: String
@@ -238,9 +250,9 @@ module.exports = gql`
     deleteUser(ID: ID!): Boolean
     updateUser(ID: ID!, input: UserUpdateInput): User!
 
-    createRide(input: RideInput): Ride!
+    createRide(input: RideInputCreate): Ride!
     deleteRide(ID: ID!): Boolean
-    updateRide(ID: ID!, input: RideInput): Ride!
+    updateRide(ID: ID!, input: RideInputUpdate): Ride!
 
     createReservation(input: ReservationInput): Reservation!
     deleteReservation(ID: ID!): Boolean
