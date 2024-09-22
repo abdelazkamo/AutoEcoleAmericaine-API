@@ -2,12 +2,12 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
   name: String,
+  email: String,
   password: String,
+  phone: String,
   avatar: String,
-  language: String,
-  green: Number,
-  address: Array,
-  contact: Array,
+  role: String,
+  isVerified: Boolean,
   createdAt: String,
 });
 
