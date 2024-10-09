@@ -1,8 +1,8 @@
 const { mergeTypeDefs } = require("@graphql-tools/merge");
 
 const userTypeDefs = require("./users");
-//const messageTypeDefs = require("./messages");
+const messageTypeDefs = require("./messages");
 
-const typeDefs = mergeTypeDefs([userTypeDefs]);
+const typeDefs = mergeTypeDefs([userTypeDefs, messageTypeDefs]);
 
 module.exports = typeDefs;
