@@ -1,6 +1,6 @@
 # AutoEcoleAmericaine Backend
 
-Welcome to AutoEcoleAmericaine! This project is the backend of a high-performance eLearning platform for driving courses, built using Node.js and Express.js. The backend is designed to provide a secure and scalable infrastructure for the platform.
+Welcome to AutoEcoleAmericaine! This project is the backend of a high-performance eLearning platform for driving courses, built using Node.js and GraphQL. The backend is designed to provide a secure and scalable infrastructure for the platform.
 
 ## Table of Contents
 
